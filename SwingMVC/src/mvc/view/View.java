@@ -1,4 +1,4 @@
-package mvc;
+package mvc.view;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import mvc.controller.AbstractController;
+import mvc.controller.ModelController;
+import mvc.view.interfaces.ModelEventSink;
 import net.miginfocom.swing.MigLayout;
 
 public class View extends JFrame implements ModelEventSink {
@@ -97,7 +100,8 @@ public class View extends JFrame implements ModelEventSink {
 		modelController.setNumber(Integer.parseInt(numberField
 			.getText()));
 		modelController.setName(nameField.getText());
-		System.out.println(modelController.registeredModels.get(0));
+		System.out
+			.println(modelController.getRegisteredModels().get(0));
 	    }
 	});
 	contentPane.add(btnOk, "cell 1 3");

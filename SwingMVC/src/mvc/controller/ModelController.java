@@ -1,4 +1,6 @@
-package mvc;
+package mvc.controller;
+
+import mvc.model.control.ModelControl;
 
 public class ModelController extends AbstractController implements ModelControl {
 

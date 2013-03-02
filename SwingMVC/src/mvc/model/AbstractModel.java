@@ -1,4 +1,4 @@
-package mvc;
+package mvc.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -1,14 +1,18 @@
-package mvc;
+package mvc.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import mvc.model.AbstractModel;
+import mvc.view.interfaces.ModelEventSink;
+
 public abstract class AbstractController implements PropertyChangeListener {
 
     protected ArrayList<ModelEventSink> registeredViews;
     protected ArrayList<AbstractModel> registeredModels;
+
 
     public AbstractController() {
 	registeredViews = new ArrayList<ModelEventSink>();
@@ -32,6 +36,10 @@ public abstract class AbstractController implements PropertyChangeListener {
 	registeredModels.clear();
     }
 
+    public ArrayList<AbstractModel> getRegisteredModels() {
+	return registeredModels;
+    }
+    
     public void addView(ModelEventSink view) {
 	registeredViews.add(view);
 	view.setController(this);

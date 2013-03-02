@@ -1,4 +1,4 @@
-package mvc;
+package mvc.model.control;
 
 public interface ModelControl {
 
@@ -8,4 +8,5 @@ public interface ModelControl {
     public void setNumber(Integer newNumber);
 
     public void setName(String newName);
+
 }
