@@ -2,34 +2,30 @@ package mvc;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public abstract class AbstractController implements PropertyChangeListener {
 
-    private ArrayList<AbstractView> registeredViews;
-    private ArrayList<AbstractModel> registeredModels;
+    protected ArrayList<ModelEvenSink> registeredViews;
+    protected AbstractModel model;
+
+    public AbstractModel getModel() {
+        return model;
+    }
+
+    public void setModel(AbstractModel model) {
+        this.model = model;
+    }
 
     public AbstractController() {
-	registeredViews = new ArrayList<AbstractView>();
-	registeredModels = new ArrayList<AbstractModel>();
+	registeredViews = new ArrayList<ModelEvenSink>();
     }
 
-    public void addModel(AbstractModel model) {
-	registeredModels.add(model);
-	model.addPropertyChangeListener(this);
-    }
-
-    public void removeModel(AbstractModel model) {
-	registeredModels.remove(model);
-	model.removePropertyChangeListener(this);
-    }
-
-    public void addView(AbstractView view) {
+    public void addView(ModelEvenSink view) {
 	registeredViews.add(view);
     }
 
-    public void removeView(AbstractView view) {
+    public void removeView(ModelEvenSink view) {
 	registeredViews.remove(view);
     }
 
@@ -37,10 +33,10 @@ public abstract class AbstractController implements PropertyChangeListener {
     // and propagate them on to all the views.
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void propertyChange(PropertyChangeEvent event) {
 
-	for (AbstractView view : registeredViews) {
-	    view.modelPropertyChange(evt);
+	for (ModelEvenSink view : registeredViews) {
+	    view.modelPropertyChange(event);
 	}
     }
 
@@ -60,20 +56,6 @@ public abstract class AbstractController implements PropertyChangeListener {
      */
     protected void setModelProperty(String propertyName, Object newValue) {
 
-	for (AbstractModel model : registeredModels) {
-	    try {
-
-		Method method = model.getClass().getMethod(
-			"set" + propertyName,
-			new Class[] { newValue.getClass() }
-
-		);
-		method.invoke(model, newValue);
-
-	    } catch (Exception ex) {
-		// Handle exception.
-	    }
-	}
     }
 
 }
