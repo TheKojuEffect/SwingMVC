@@ -8,19 +8,28 @@ import java.util.ArrayList;
 public abstract class AbstractController implements PropertyChangeListener {
 
     protected ArrayList<ModelEventSink> registeredViews;
-    protected AbstractModel model;
-
-    public AbstractModel getModel() {
-	return model;
-    }
-
-    public void setModel(AbstractModel model) {
-	this.model = model;
-	model.addPropertyChangeListener(this);
-    }
+    protected ArrayList<AbstractModel> registeredModels;
 
     public AbstractController() {
 	registeredViews = new ArrayList<ModelEventSink>();
+	registeredModels = new ArrayList<AbstractModel>();
+    }
+
+    public void addModel(AbstractModel model) {
+	registeredModels.add(model);
+	model.addPropertyChangeListener(this);
+    }
+
+    public void removeModel(AbstractModel model) {
+	registeredModels.remove(model);
+	model.removePropertyChangeListener(this);
+    }
+
+    public void removeAllModels() {
+	for (AbstractModel model : registeredModels) {
+	    model.removePropertyChangeListener(this);
+	}
+	registeredModels.clear();
     }
 
     public void addView(ModelEventSink view) {
@@ -29,6 +38,10 @@ public abstract class AbstractController implements PropertyChangeListener {
 
     public void removeView(ModelEventSink view) {
 	registeredViews.remove(view);
+    }
+
+    public void removeAllViews() {
+	registeredViews.clear();
     }
 
     // Use this to observe property changes from model
@@ -57,18 +70,20 @@ public abstract class AbstractController implements PropertyChangeListener {
      *            of the property.
      */
     protected void setModelProperty(String propertyName, Object newValue) {
-	try {
+	for (AbstractModel model : registeredModels) {
+	    try {
 
-	    Method method = model.getClass().getMethod("set" + propertyName,
-		    new Class[] { newValue.getClass() }
+		Method method = model.getClass().getMethod(
+			"set" + propertyName,
+			new Class[] { newValue.getClass() }
 
-	    );
-	    method.invoke(model, newValue);
+		);
+		method.invoke(model, newValue);
 
-	} catch (Exception ex) {
-	    System.out.println("From setModelProperty");
-	    ex.printStackTrace();
+	    } catch (Exception ex) {
+		System.err.println("From setModelProperty");
+		ex.printStackTrace();
+	    }
 	}
     }
-
 }
