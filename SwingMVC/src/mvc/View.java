@@ -1,6 +1,8 @@
 package mvc;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 
 import javax.swing.JButton;
@@ -18,6 +20,8 @@ import net.miginfocom.swing.MigLayout;
 public class View extends JFrame implements ModelEventSink {
 
     private static final long serialVersionUID = 7239814764257393927L;
+
+    private ModelController modelController;
     private JPanel contentPane;
     private JTextField numberField;
     private JTextField nameField;
@@ -87,12 +91,29 @@ public class View extends JFrame implements ModelEventSink {
 	contentPane.add(btnCancel, "flowx,cell 1 3");
 
 	JButton btnOk = new JButton("OK");
+	btnOk.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		modelController.setNumber(Integer.parseInt(numberField
+			.getText()));
+		modelController.setName(nameField.getText());
+	    }
+	});
 	contentPane.add(btnOk, "cell 1 3");
     }
 
     @Override
     public void modelPropertyChange(PropertyChangeEvent evt) {
-	
+	if (evt.getPropertyName().equals(
+		ModelController.ELEMENT_NUMBER_PROPERTY)) {
+	    numberField.setText(evt.getNewValue().toString());
+	} else if (evt.getPropertyName().equals(
+		ModelController.ELEMENT_NAME_PROPERTY)) {
+	    nameField.setText(evt.getNewValue().toString());
+	} else
+	    System.out
+		    .println("Don't know why modelPropertyChange was called!");
+
     }
 
 }
