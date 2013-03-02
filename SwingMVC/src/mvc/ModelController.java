@@ -3,7 +3,7 @@ package mvc;
 public class ModelController extends AbstractController implements ModelControl {
 
     @Override
-    public void setNumber(int newNumber) {
+    public void setNumber(Integer newNumber) {
 	setModelProperty(ELEMENT_NUMBER_PROPERTY, newNumber);
     }
 

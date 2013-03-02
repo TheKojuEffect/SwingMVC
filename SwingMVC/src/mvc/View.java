@@ -1,6 +1,5 @@
 package mvc;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -25,10 +24,10 @@ public class View extends JFrame implements ModelEventSink {
     private JPanel contentPane;
     private JTextField numberField;
     private JTextField nameField;
-
-    /**
+/*
+    *//**
      * Launch the application.
-     */
+     *//*
     public static void main(String[] args) {
 	EventQueue.invokeLater(new Runnable() {
 	    @Override
@@ -42,11 +41,12 @@ public class View extends JFrame implements ModelEventSink {
 	    }
 	});
     }
-
+*/
     /**
      * Create the frame.
      */
-    public View() {
+    public View(ModelController controller) {
+	modelController = controller;
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setBounds(100, 100, 450, 300);
 
@@ -97,6 +97,7 @@ public class View extends JFrame implements ModelEventSink {
 		modelController.setNumber(Integer.parseInt(numberField
 			.getText()));
 		modelController.setName(nameField.getText());
+		System.out.println(modelController.registeredModels.get(0));
 	    }
 	});
 	contentPane.add(btnOk, "cell 1 3");

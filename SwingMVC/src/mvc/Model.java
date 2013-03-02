@@ -2,19 +2,20 @@ package mvc;
 
 public class Model extends AbstractModel implements ModelControl {
 
-    private int number;
+    private Integer number;
     private String name;
 
     public Model() {
 	super();
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
 	return number;
     }
 
-    public void setNumber(int number) {
-	int oldNumber = getNumber();
+    @Override
+    public void setNumber(Integer number) {
+	Integer oldNumber = getNumber();
 	this.number = number;
 	firePropertyChange(ModelControl.ELEMENT_NUMBER_PROPERTY, oldNumber,
 		getNumber());
@@ -24,6 +25,7 @@ public class Model extends AbstractModel implements ModelControl {
 	return name;
     }
 
+    @Override
     public void setName(String name) {
 	String oldName = getName();
 	this.name = name;
@@ -31,9 +33,16 @@ public class Model extends AbstractModel implements ModelControl {
 		getName());
     }
 
+    @Override
+    public String toString() {
+	return new String("Number: " + getNumber() + "\nName: " + getName());
+    }
+
     public void initDefaults() {
 	setNumber(99);
-	setName("Developement Phase");
+	System.out.println(getNumber());
+	setName("Test Model");
+	System.out.println(getName());
     }
 
 }
