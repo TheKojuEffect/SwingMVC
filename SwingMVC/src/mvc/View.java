@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-public class View extends JFrame {
+public class View extends JFrame implements ModelEventSink {
 
     private static final long serialVersionUID = 7239814764257393927L;
     private JPanel contentPane;
@@ -90,8 +90,9 @@ public class View extends JFrame {
 	contentPane.add(btnOk, "cell 1 3");
     }
 
+    @Override
     public void modelPropertyChange(PropertyChangeEvent evt) {
-	
+
     }
 
 }

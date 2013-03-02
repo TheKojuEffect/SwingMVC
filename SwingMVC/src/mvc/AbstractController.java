@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractController implements PropertyChangeListener {
 
-    protected ArrayList<ModelEvenSink> registeredViews;
+    protected ArrayList<ModelEventSink> registeredViews;
     protected AbstractModel model;
 
     public AbstractModel getModel() {
@@ -18,14 +18,14 @@ public abstract class AbstractController implements PropertyChangeListener {
     }
 
     public AbstractController() {
-	registeredViews = new ArrayList<ModelEvenSink>();
+	registeredViews = new ArrayList<ModelEventSink>();
     }
 
-    public void addView(ModelEvenSink view) {
+    public void addView(ModelEventSink view) {
 	registeredViews.add(view);
     }
 
-    public void removeView(ModelEvenSink view) {
+    public void removeView(ModelEventSink view) {
 	registeredViews.remove(view);
     }
 
@@ -35,7 +35,7 @@ public abstract class AbstractController implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent event) {
 
-	for (ModelEvenSink view : registeredViews) {
+	for (ModelEventSink view : registeredViews) {
 	    view.modelPropertyChange(event);
 	}
     }
