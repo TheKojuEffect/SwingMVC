@@ -3,7 +3,7 @@ package mvc;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class Model {
+public class Model extends AbstractModel {
 
     private PropertyChangeSupport propertyChangeSupport;
     private int number;
@@ -28,6 +28,7 @@ public class Model {
 	return name;
     }
 
+    @Override
     protected void firePropertyChange(String propertyName, Object oldValue,
 	    Object newValue) {
 	propertyChangeSupport.firePropertyChange(propertyName, oldValue,
@@ -45,10 +46,12 @@ public class Model {
 	setName("Developement Phase");
     }
 
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
 	propertyChangeSupport.addPropertyChangeListener(listener);
     }
 
+    @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
 	propertyChangeSupport.removePropertyChangeListener(listener);
     }
