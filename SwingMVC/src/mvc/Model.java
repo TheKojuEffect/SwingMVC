@@ -1,14 +1,12 @@
 package mvc;
 
-import java.beans.PropertyChangeSupport;
-
 public class Model extends AbstractModel {
 
     private int number;
     private String name;
 
     public Model() {
-	propertyChangeSupport = new PropertyChangeSupport(this);
+	super();
     }
 
     public int getNumber() {
@@ -18,7 +16,7 @@ public class Model extends AbstractModel {
     public void setNumber(int number) {
 	int oldNumber = getNumber();
 	this.number = number;
-	firePropertyChange(ModelController.ELEMENT_NUMBER_PROPERTY, oldNumber,
+	firePropertyChange(ModelControl.ELEMENT_NUMBER_PROPERTY, oldNumber,
 		getNumber());
     }
 
@@ -29,7 +27,8 @@ public class Model extends AbstractModel {
     public void setName(String name) {
 	String oldName = getName();
 	this.name = name;
-	firePropertyChange(ModelController.ELEMENT_NAME_PROPERTY, oldName, getName());
+	firePropertyChange(ModelControl.ELEMENT_NAME_PROPERTY, oldName,
+		getName());
     }
 
     public void initDefaults() {
