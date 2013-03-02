@@ -34,6 +34,7 @@ public abstract class AbstractController implements PropertyChangeListener {
 
     public void addView(ModelEventSink view) {
 	registeredViews.add(view);
+	view.setController(this);
     }
 
     public void removeView(ModelEventSink view) {

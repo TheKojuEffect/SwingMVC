@@ -1,5 +1,6 @@
 package mvc;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -24,10 +25,10 @@ public class View extends JFrame implements ModelEventSink {
     private JPanel contentPane;
     private JTextField numberField;
     private JTextField nameField;
-/*
-    *//**
+
+    /**
      * Launch the application.
-     *//*
+     */
     public static void main(String[] args) {
 	EventQueue.invokeLater(new Runnable() {
 	    @Override
@@ -41,12 +42,11 @@ public class View extends JFrame implements ModelEventSink {
 	    }
 	});
     }
-*/
+
     /**
      * Create the frame.
      */
-    public View(ModelController controller) {
-	modelController = controller;
+    public View() {
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setBounds(100, 100, 450, 300);
 
@@ -115,6 +115,11 @@ public class View extends JFrame implements ModelEventSink {
 	    System.out
 		    .println("Don't know why modelPropertyChange was called!");
 
+    }
+
+    @Override
+    public void setController(AbstractController controller) {
+	modelController = (ModelController) controller;
     }
 
 }

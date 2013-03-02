@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 	Model model = new Model();
 	ModelController modelController = new ModelController();
-	View view = new View(modelController);
+	View view = new View();
 
 	modelController.addModel(model);
 	modelController.addView(view);
