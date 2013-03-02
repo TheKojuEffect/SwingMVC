@@ -1,6 +1,6 @@
 package mvc;
 
-public class Model extends AbstractModel {
+public class Model extends AbstractModel implements ModelControl {
 
     private int number;
     private String name;
