@@ -2,6 +2,7 @@ package mvc;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public abstract class AbstractController implements PropertyChangeListener {
@@ -10,11 +11,11 @@ public abstract class AbstractController implements PropertyChangeListener {
     protected AbstractModel model;
 
     public AbstractModel getModel() {
-        return model;
+	return model;
     }
 
     public void setModel(AbstractModel model) {
-        this.model = model;
+	this.model = model;
     }
 
     public AbstractController() {
@@ -29,7 +30,7 @@ public abstract class AbstractController implements PropertyChangeListener {
 	registeredViews.remove(view);
     }
 
-    // Use this to observe property changes from registered models
+    // Use this to observe property changes from model
     // and propagate them on to all the views.
 
     @Override
@@ -55,7 +56,18 @@ public abstract class AbstractController implements PropertyChangeListener {
      *            of the property.
      */
     protected void setModelProperty(String propertyName, Object newValue) {
+	try {
 
+	    Method method = model.getClass().getMethod("set" + propertyName,
+		    new Class[] { newValue.getClass() }
+
+	    );
+	    method.invoke(model, newValue);
+
+	} catch (Exception ex) {
+	    System.out.println("From setModelProperty");
+	    ex.printStackTrace();
+	}
     }
 
 }
