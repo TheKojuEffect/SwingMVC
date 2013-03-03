@@ -1,4 +1,4 @@
-package mvc.view.interfaces;
+package mvc.view.iface;
 
 import java.beans.PropertyChangeEvent;
 

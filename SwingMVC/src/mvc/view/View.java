@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import mvc.controller.AbstractController;
 import mvc.controller.ModelController;
-import mvc.view.interfaces.ModelEventSink;
+import mvc.view.iface.ModelEventSink;
 import net.miginfocom.swing.MigLayout;
 
 public class View extends JFrame implements ModelEventSink {

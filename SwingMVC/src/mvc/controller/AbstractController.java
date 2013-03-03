@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import mvc.model.AbstractModel;
-import mvc.view.interfaces.ModelEventSink;
+import mvc.view.iface.ModelEventSink;
 
 public abstract class AbstractController implements PropertyChangeListener {
 
