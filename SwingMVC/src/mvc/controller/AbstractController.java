@@ -2,44 +2,44 @@ package mvc.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import mvc.model.AbstractModel;
+import mvc.service.ModelService;
 import mvc.view.iface.ModelEventSink;
 
 public abstract class AbstractController implements PropertyChangeListener {
 
     protected ArrayList<ModelEventSink> registeredViews;
-    protected ArrayList<AbstractModel> registeredModels;
-
+    protected ArrayList<ModelService> registeredServices;
 
     public AbstractController() {
 	registeredViews = new ArrayList<ModelEventSink>();
-	registeredModels = new ArrayList<AbstractModel>();
+	registeredServices = new ArrayList<ModelService>();
     }
 
-    public void addModel(AbstractModel model) {
-	registeredModels.add(model);
-	model.addPropertyChangeListener(this);
+    public void addModel(ModelService service) {
+	registeredServices.add(service);
+	service.getModel().addPropertyChangeListener(this);
+	//service.addPropertyChangeListener(this);
     }
 
-    public void removeModel(AbstractModel model) {
-	registeredModels.remove(model);
-	model.removePropertyChangeListener(this);
+    /*
+     * public void removeModel(AbstractModel model) {
+     * registeredServices.remove(model);
+     * model.removePropertyChangeListener(this);
+     * }
+     * 
+     * public void removeAllModels() {
+     * for (AbstractModel model : registeredServices) {
+     * model.removePropertyChangeListener(this);
+     * }
+     * registeredServices.clear();
+     * }
+     */
+    public ArrayList<ModelService> getRegisteredModels() {
+	return registeredServices;
     }
 
-    public void removeAllModels() {
-	for (AbstractModel model : registeredModels) {
-	    model.removePropertyChangeListener(this);
-	}
-	registeredModels.clear();
-    }
-
-    public ArrayList<AbstractModel> getRegisteredModels() {
-	return registeredModels;
-    }
-    
     public void addView(ModelEventSink view) {
 	registeredViews.add(view);
 	view.setController(this);
@@ -79,7 +79,7 @@ public abstract class AbstractController implements PropertyChangeListener {
      *            of the property.
      */
     protected void setModelProperty(String propertyName, Object newValue) {
-	for (AbstractModel model : registeredModels) {
+/*	for (AbstractModel model : registeredServices) {
 	    try {
 
 		Method method = model.getClass().getMethod(
@@ -94,5 +94,5 @@ public abstract class AbstractController implements PropertyChangeListener {
 		ex.printStackTrace();
 	    }
 	}
-    }
+*/    }
 }
