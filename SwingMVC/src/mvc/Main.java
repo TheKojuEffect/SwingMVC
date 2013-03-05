@@ -2,6 +2,8 @@ package mvc;
 
 import mvc.controller.ModelController;
 import mvc.model.Model;
+import mvc.service.ModelService;
+import mvc.service.ModelServiceImpl;
 import mvc.view.View;
 
 public class Main {
@@ -10,7 +12,9 @@ public class Main {
 	ModelController modelController = new ModelController();
 	View view = new View();
 
-	modelController.addModel(model);
+	ModelService modelService = new ModelServiceImpl();
+	modelService.createModel(model);
+	modelController.addService(modelService);
 	modelController.addView(view);
 	view.setVisible(true);
 

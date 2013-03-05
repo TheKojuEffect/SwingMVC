@@ -100,8 +100,8 @@ public class View extends JFrame implements ModelEventSink {
 		modelController.setNumber(Integer.parseInt(numberField
 			.getText()));
 		modelController.setName(nameField.getText());
-		System.out
-			.println(modelController.getRegisteredModels().get(0));
+		System.out.println(modelController.getRegisteredServices()
+			.get(0).getModel());
 	    }
 	});
 	contentPane.add(btnOk, "cell 1 3");

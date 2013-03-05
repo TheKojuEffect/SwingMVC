@@ -11,4 +11,20 @@ public class ModelServiceImpl implements ModelService {
 	return model;
     }
 
+    @Override
+    public void setNumber(Integer newNumber) {
+	model.setNumber(newNumber);
+    }
+
+    @Override
+    public void setName(String newName) {
+	model.setName(newName);
+    }
+
+    @Override
+    public Model createModel(Model model) {
+	this.model = model;
+	return model;
+    }
+
 }

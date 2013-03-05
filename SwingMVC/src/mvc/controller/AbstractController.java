@@ -2,6 +2,7 @@ package mvc.controller;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import mvc.service.ModelService;
@@ -17,10 +18,10 @@ public abstract class AbstractController implements PropertyChangeListener {
 	registeredServices = new ArrayList<ModelService>();
     }
 
-    public void addModel(ModelService service) {
+    public void addService(ModelService service) {
 	registeredServices.add(service);
 	service.getModel().addPropertyChangeListener(this);
-	//service.addPropertyChangeListener(this);
+	// service.addPropertyChangeListener(this);
     }
 
     /*
@@ -36,7 +37,7 @@ public abstract class AbstractController implements PropertyChangeListener {
      * registeredServices.clear();
      * }
      */
-    public ArrayList<ModelService> getRegisteredModels() {
+    public ArrayList<ModelService> getRegisteredServices() {
 	return registeredServices;
     }
 
@@ -79,20 +80,20 @@ public abstract class AbstractController implements PropertyChangeListener {
      *            of the property.
      */
     protected void setModelProperty(String propertyName, Object newValue) {
-/*	for (AbstractModel model : registeredServices) {
+	for (ModelService service : registeredServices) {
 	    try {
 
-		Method method = model.getClass().getMethod(
+		Method method = service.getClass().getMethod(
 			"set" + propertyName,
 			new Class[] { newValue.getClass() }
 
 		);
-		method.invoke(model, newValue);
+		method.invoke(service, newValue);
 
 	    } catch (Exception ex) {
 		System.err.println("From setModelProperty");
 		ex.printStackTrace();
 	    }
 	}
-*/    }
+    }
 }
