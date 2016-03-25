@@ -111,14 +111,20 @@ public class View extends JFrame implements ModelEventSink {
     public void modelPropertyChange(PropertyChangeEvent evt) {
 	if (evt.getPropertyName().equals(
 		ModelController.ELEMENT_NUMBER_PROPERTY)) {
-	    numberField.setText(evt.getNewValue().toString());
+		String newVal = evt.getNewValue().toString();
+		if(!newVal.equals(numberField.getText())){
+			//when the change is called by user action, do not update the same value
+			numberField.setText(newVal);
+		}
 	} else if (evt.getPropertyName().equals(
 		ModelController.ELEMENT_NAME_PROPERTY)) {
-	    nameField.setText(evt.getNewValue().toString());
+		String newVal = evt.getNewValue().toString();
+		if(!newVal.equals(nameField.getText()){
+			nameField.setText(newVal);
+		}
 	} else
 	    System.out
 		    .println("Don't know why modelPropertyChange was called!");
-
     }
 
     @Override
